@@ -17,6 +17,32 @@
 
   <title>Davide Porcu Developer</title>
 
+  <!-- for emailJs -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+      <script type="text/javascript">
+          (function() {
+              // https://dashboard.emailjs.com/admin/integration
+              emailjs.init('user_wMOGcckVImxQ7XmeXxka3');
+          })();
+      </script>
+      <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                  // generate a five digit number for the contact_number variable
+                  this.contact_number.value = Math.random() * 100000 | 0;
+                  // these IDs from the previous steps
+                  emailjs.sendForm('contact_service', 'contact_form', this)
+                      .then(function() {
+                          console.log('SUCCESS!');
+                      }, function(error) {
+                          console.log('FAILED...', error);
+                      });
+              });
+          }
+      </script>
+
 </head>
 
 <body>
@@ -122,7 +148,7 @@
 
   <section id="contact" class="contactMe bg-light">
 
-    <!-- copy from startbootstrap -->
+    <!-- copy from... -->
     <div class="container-fluid">
 
       <div class="row align-items-center no-gutters">
@@ -132,46 +158,34 @@
         <div class="sarosa col-lg-6 order-lg-1 p-0 ">
 
           <!-- Bootstrap 5 starter form -->
-          <form id="contactForm">
+          <form id="contact-form">
 
-            <!-- modifiche personali al form -->
+            
             <h2>Contact me</h2>
+
+              <input type="hidden" name="contact_number">
 
             <!-- Name input -->
             <div class="mb-3">
               <label class="form-label" for="name">Name</label>
-              <input class="form-control" id="name" type="text" placeholder="Name" data-sb-validations="required" />
-              <div class="invalid-feedback" data-sb-feedback="name:required">Name is required.</div>
+              <input class="form-control" name="user_name" id="userName" type="text" placeholder="Name" data-sb-validations="required" />
             </div>
 
             <!-- Email address input -->
             <div class="mb-3">
               <label class="form-label" for="emailAddress">Email Address</label>
-              <input class="form-control" id="emailAddress" type="email" placeholder="Email Address" data-sb-validations="required, email" />
-              <div class="invalid-feedback" data-sb-feedback="emailAddress:required">Email Address is required.</div>
-              <div class="invalid-feedback" data-sb-feedback="emailAddress:email">Email Address Email is not valid.</div>
+              <input class="form-control" name="user_email" id="userEmail" type="email" placeholder="Email Address" data-sb-validations="required, email" />
             </div>
 
             <!-- Message input -->
             <div class="mb-3">
               <label class="form-label" for="message">Message</label>
-              <textarea class="form-control" id="message" type="text" placeholder="Message" style="height: 10rem;" data-sb-validations="required"></textarea>
-              <div class="invalid-feedback" data-sb-feedback="message:required">Message is required.</div>
-            </div>
-
-            <!-- Form submissions success message -->
-            <div class="d-none" id="submitSuccessMessage">
-              <div class="text-center mb-3">Form submission successful!</div>
-            </div>
-
-            <!-- Form submissions error message -->
-            <div class="d-none" id="submitErrorMessage">
-              <div class="text-center text-danger mb-3">Error sending message!</div>
+              <textarea class="form-control" name="message" id="msg" type="text" placeholder="Message" style="height: 10rem;" data-sb-validations="required"></textarea>
             </div>
 
             <!-- Form submit button -->
             <div class="d-grid">
-              <button class="btn btn-primary btn-lg" type="submit">Send</button>
+              <button value="Send" class="btn btn-primary btn-lg" type="submit">Send</button>
             </div>
 
           </form>
